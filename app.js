@@ -20,6 +20,7 @@ const request = require('request');
 const winston = require('winston');
 var app = express();
 
+const MysqlQuery = require('./library/queries/query');
 const receivedAccountLink = require('./library/receiver/receivedAccountLink');
 const receivedAuthentication = require('./library/receiver/receivedAuthentication');
 const receivedDeliveryConfirmation = require('./library/receiver/receivedDeliveryConfirmation');
@@ -97,7 +98,7 @@ app.get('/webhook', function(req, res) {
  */
 app.post('/webhook', function (req, res) {
   var data = req.body;
-
+  
   // Make sure this is a page subscription
   if (data.object == 'page') {
     // Iterate over each entry
@@ -108,6 +109,7 @@ app.post('/webhook', function (req, res) {
 
       // Iterate over each messaging event
       pageEntry.messaging.forEach(function(messagingEvent) {
+		  console.log(messagingEvent);
         if (messagingEvent.optin) {
           receivedAuthentication(messagingEvent);
         } else if (messagingEvent.message) {

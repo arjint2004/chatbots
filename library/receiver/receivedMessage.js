@@ -15,6 +15,7 @@ const sendTypingOff = require('../sender/sendTypingOff');
 const sendAccountLinking = require('../sender/sendAccountLinking');
 
 const recordExpense = require('../actions/transactions/recordExpense');
+const Query = require('../queries/query');
 
 module.exports = function receivedMessage(event) {
     const senderID = event.sender.id;
@@ -105,6 +106,7 @@ module.exports = function receivedMessage(event) {
             break;
 
         default:
+			Query.savemessage(event,()=>{})
             // sendTextMessage(senderID, messageText, () => {});
         }
     } else if (messageAttachments) {
