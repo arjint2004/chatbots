@@ -106,7 +106,7 @@ module.exports = function receivedMessage(event) {
             break;
 
         default:
-			Query.savemessage(event,()=>{})
+			Query.savemessage(event,()=>{},'receivedMessage');
             // sendTextMessage(senderID, messageText, () => {});
         }
     } else if (messageAttachments) {

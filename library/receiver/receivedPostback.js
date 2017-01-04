@@ -8,6 +8,8 @@ const getViewSite = require('../actions/getViewSite');
 const getLearnMore = require('../actions/getLearnMore');
 const getQuantity = require('../actions/getQuantity');
 
+const Query = require('../queries/query');
+
 module.exports = function receivedPostback(event) {
     const senderID = event.sender.id;
     const recipientID = event.recipient.id;
@@ -28,6 +30,7 @@ module.exports = function receivedPostback(event) {
                 break;
 
             case 'order_now':
+				Query.savemessagePostback(event,()=>{},'order_now','receivedPostback');
                 getShopNow(senderID);
                 break;
 
@@ -40,10 +43,12 @@ module.exports = function receivedPostback(event) {
                 break;
 				
             case 'order_w1':
+				Query.savemessagePostback(event,()=>{},'order_w1','receivedPostback');
                 sendTextMessage(senderID, 'Berapa jumlah yang dipesan ?');
                 break;
 				
             case 'order_acg':
+				Query.savemessagePostback(event,()=>{},'order_acg','receivedPostback');
                 sendTextMessage(senderID, 'Berapa jumlah yang dipesan ?');
                 break;
 
