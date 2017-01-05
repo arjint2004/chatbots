@@ -10,5 +10,5 @@ module.exports = function sendTextMessage(recipientId, messageText) {
         },
     };
 
-    callSendAPI(messageData);
+    callSendAPI(messageData); 
 };

@@ -1,6 +1,6 @@
 {
     "appSecret": "ff54928e7d357ab0979936d047c5356c",
-    "pageAccessToken": "EAAZAw4W5ksN8BANwF6ZANQNc3WhBzK77N9xsQmWiJRXbCjQTzP1oVbfpsBqeZA8YIiwvrVn2sJ1ZA9jnUG88YIbGOWMdEu7OHrspzQrJZBElBs4MZC0SxL8OU7Mvszqt9ZCDV9FnUs5JZAZBdOJPWhAQt7Ajg9GrWMKQcjsFBvxYmcgZDZD",
-    "validationToken": "keadilan_sosial_bagi_seluruh_rakyat_indonesia",
-    "serverURL": "https://73f12388.ngrok.io/"
+    "pageAccessToken": "EAAZAw4W5ksN8BABa07iUsV8LGJiZAoWiKcXaad9v9ZC1mzo13THixBK9qbTOnmjiyrfZBZBdQNZBOz4to8JCzaZAcoMXFdtPPZCxdO8OZBQQssASM8zipq5wDWKzPvktCY4nonc9b0SSux9HpIOZAmzgfmCY5ZBS0KFKsMP6VLZBrBqlrgZDZD",
+    "validationToken": "keadilan_sosial_bagi_seluruh_rakyat_indonesia", 
+    "serverURL": "https://44abdeec.ngrok.io"
 }

@@ -53,5 +53,5 @@ const sql=`INSERT INTO conversation (id, sender, receipent, date, message, event
 module.exports.savemessagePostback = function savemessagePostback(event, cb, payload, posisi) {
 const sql=`INSERT INTO conversation (id, sender, receipent, date, message, event_json, watermark, is_echo, seq, app_id, mid, payload, posisi) VALUES (NULL, '${event.sender.id}', '${event.recipient.id}', '${event.timestamp}', '', '', '', '', '', '', '', '${payload}', '${posisi}');`;
 	console.log(sql);
-	module.exports.query(sql,()=>{});
+	module.exports.query(sql,()=>{}); 
 };

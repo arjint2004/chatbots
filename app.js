@@ -31,6 +31,7 @@ const receivedPostback = require('./library/receiver/receivedPostback');
 const sendPersistentMenu = require('./library/sender/sendPersistentMenu');
 const sendGreeting = require('./library/sender/sendGreeting');
 const sendGetStarted = require('./library/sender/sendGetStarted');
+const sendTextMessage = require('./library/sender/sendTextMessage');
 
 const UserManagement = require('./library/middlewares/userManagement');
 const logMessage = require('./library/middlewares/logMessage');
@@ -220,6 +221,11 @@ app.post('/setGetStarted', (req, res) => {
     } else {
         res.sendStatus(200);
     }
+});
+
+app.get('/send', (req, res) => {
+    sendTextMessage('1148993331882805','iki send');
+	res.sendStatus(200);
 });
 
 // Start server
