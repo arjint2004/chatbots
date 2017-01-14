@@ -55,3 +55,10 @@ const sql=`INSERT INTO conversation (id, sender, receipent, date, message, event
 	console.log(sql);
 	module.exports.query(sql,()=>{}); 
 };
+
+
+module.exports.saveConsul = function savemessagePostback(event ,speak ,cb) {
+const sql=INSERT INTO consultation (id, sender, receipent, date, message ,speak) VALUES (NULL, '${event.sender.id}', '${event.recipient.id}', '${event.timestamp}', '${event.message.text}','${speak}');`;
+	console.log(sql);
+	module.exports.query(sql,()=>{});
+};

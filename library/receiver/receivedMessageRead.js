@@ -6,7 +6,7 @@ module.exports = function receivedMessageRead(event) {
 
     const watermark = event.read.watermark;
     const sequenceNumber = event.read.seq;
-	Query.savemessagereceivedRead(event,()=>{},'receivedMessageRead');
+	// Query.savemessagereceivedRead(event,()=>{},'receivedMessageRead');
     winston.info(`Received message read event for watermark ${watermark}
         and sequence number ${sequenceNumber}`);
 };

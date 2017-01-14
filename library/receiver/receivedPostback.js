@@ -9,6 +9,7 @@ const getLearnMore = require('../actions/getLearnMore');
 const getQuantity = require('../actions/getQuantity');
 
 const Query = require('../queries/query');
+const konsultasi = require('../actions/konsultasi');
 
 module.exports = function receivedPostback(event) {
     const senderID = event.sender.id;
@@ -42,14 +43,20 @@ module.exports = function receivedPostback(event) {
                 getLearnMore(senderID);
                 break;
 				
+            case 'konsultasi':
+                console.log('konsul');
+				sendTextMessage(senderID, 'Anda akan memulai konsultasi online. Jawab pertanyaan dengan benar dan sesuai kondisi anda. Untuk hasil yang baik.', () => {});
+				konsultasi(event,function(){});
+                break;
+				
             case 'order_w1':
-				Query.savemessagePostback(event,()=>{},'order_w1','receivedPostback');
-                sendTextMessage(senderID, 'Berapa jumlah yang dipesan ?');
+				// Query.savemessagePostback(event,()=>{},'order_w1','receivedPostback');
+                sendTextMessage(senderID, 'Berapa jumlah yang dipesan ?', () => {});
                 break;
 				
             case 'order_acg':
-				Query.savemessagePostback(event,()=>{},'order_acg','receivedPostback');
-                sendTextMessage(senderID, 'Berapa jumlah yang dipesan ?');
+				// Query.savemessagePostback(event,()=>{},'order_acg','receivedPostback');
+                sendTextMessage(senderID, 'Berapa jumlah yang dipesan ?', () => {});
                 break;
 
             default:

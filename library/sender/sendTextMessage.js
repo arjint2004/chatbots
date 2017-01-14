@@ -1,6 +1,6 @@
 const callSendAPI = require('./callSendAPI');
 
-module.exports = function sendTextMessage(recipientId, messageText) {
+module.exports = function sendTextMessage(recipientId, messageText,cb) {
     const messageData = {
         recipient: {
             id: recipientId,
@@ -9,6 +9,7 @@ module.exports = function sendTextMessage(recipientId, messageText) {
             text: messageText,
         },
     };
-
+	
     callSendAPI(messageData); 
+	cb()
 };
