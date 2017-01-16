@@ -47,7 +47,9 @@ module.exports = function receivedMessage(event) {
         sendTextMessage(senderID, 'Quick reply tapped', () => {});
         return;
     }
-
+	//konsultasi
+	console.log(JSON.stringify(event));
+	return false;
     if (messageText && messageText.indexOf('beli') !== -1) {
         recordExpense(senderID, messageText);
     } else if (messageText) {
