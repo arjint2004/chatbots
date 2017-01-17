@@ -58,7 +58,7 @@ const sql=`INSERT INTO conversation (id, sender, receipent, date, message, event
 
 
 module.exports.saveConsul = function savemessagePostback(event ,msg ,cb) {
-const sql=`INSERT INTO consultation (id, sender, receipent, date, message ,speak ,event ,watermark ,session ,step) VALUES (NULL, '${event.sender.id}', '${event.recipient.id}', '${event.timestamp}', '${msg.texts}','${msg.bot}','${JSON.stringify(event)}','','','${msg.step}');`;
+const sql=`INSERT INTO conversations (id, sender, receipent, date, message ,speak ,event ,watermark ,session ,step) VALUES (NULL, '${event.sender.id}', '${event.recipient.id}', '${event.timestamp}', '${msg.texts}','${msg.bot}','${JSON.stringify(event)}','','','${msg.step}');`;
 	console.log(sql);
 	module.exports.query(sql,()=>{});
 };

@@ -16,7 +16,11 @@ const sendAccountLinking = require('../sender/sendAccountLinking');
 
 const recordExpense = require('../actions/transactions/recordExpense');
 const Query = require('../queries/query');
-
+const config = require('config');
+const PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
+  (process.env.MESSENGER_PAGE_ACCESS_TOKEN) :
+  config.get('pageAccessToken');
+  
 module.exports = function receivedMessage(event) {
     const senderID = event.sender.id;
     const recipientID = event.recipient.id;
@@ -26,7 +30,7 @@ module.exports = function receivedMessage(event) {
     winston.info(`Received message for user ${senderID} and
         page ${recipientID} at ${timeOfMessage} with message:`);
 
-    winston.info(JSON.stringify(message));
+    // winston.info(JSON.stringify(message));
 
     const isEcho = message.is_echo;
     const messageId = message.mid;
@@ -47,9 +51,51 @@ module.exports = function receivedMessage(event) {
         sendTextMessage(senderID, 'Quick reply tapped', () => {});
         return;
     }
-	//konsultasi
-	console.log(JSON.stringify(event));
+	
+	//make cookie
+	// console.log(JSON.stringify(event));
+	
+	
+	var url_pofile="https://graph.facebook.com/v2.6/"+senderID+"?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token="+PAGE_ACCESS_TOKEN+"";
+	
+	var request=require('request');
+
+	request.get(url_pofile,function(error,response,body){
+	  if(error) {
+		  winston.info(
+                'Failed calling Send API',
+                response.statusCode,
+                response.statusMessage,
+                body.error
+            );
+	  }
+	  if(!error && response.statusCode === 200 ) {
+			var cookie_value = {"event":[event],"profile":[JSON.parse(body)]};
+			console.log(JSON.stringify(cookie_value));
+			/*var	cookie=
+			const sql=INSERT INTO cookie (
+						id ,
+						sender ,
+						receipent ,
+						value
+						)
+						VALUES (
+						'0', '', '', ''
+						);
+						;
+			console.log(sql);
+			module.exports.query(sql,()=>{});*/  
+	  }
+	  
+	});
+	
+	
+	
+
+
+	
 	return false;
+	
     if (messageText && messageText.indexOf('beli') !== -1) {
         recordExpense(senderID, messageText);
     } else if (messageText) {
