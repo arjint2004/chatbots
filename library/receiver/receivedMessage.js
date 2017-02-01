@@ -52,42 +52,45 @@ module.exports = function receivedMessage(event) {
         return;
     }
 	
-	//make cookie
+	//cek aktifitas terahir
 	// console.log(JSON.stringify(event));
-	
-	
-	var url_pofile="https://graph.facebook.com/v2.6/"+senderID+"?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token="+PAGE_ACCESS_TOKEN+"";
-	
-	var request=require('request');
+	var sqlcek='SELECT id,sender,receipent,date,speak,watermark,session,step  FROM percakapan WHERE sender='+senderID+'';
+	Query.query(sqlcek,(x,rows)=>{
+		console.log(JSON.stringify(rows));
+	});	
+	return false;
+		var url_pofile="https://graph.facebook.com/v2.6/"+senderID+"?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token="+PAGE_ACCESS_TOKEN+"";
+		
+		var request=require('request');
 
-	request.get(url_pofile,function(error,response,body){
-	  if(error) {
-		  winston.info(
-                'Failed calling Send API',
-                response.statusCode,
-                response.statusMessage,
-                body.error
-            );
-	  }
-	  if(!error && response.statusCode === 200 ) {
-			var cookie_value = {"event":[event],"profile":[JSON.parse(body)]};
-			console.log(JSON.stringify(cookie_value));
-			/*var	cookie=
-			const sql=INSERT INTO cookie (
-						id ,
-						sender ,
-						receipent ,
-						value
-						)
-						VALUES (
-						'0', '', '', ''
-						);
-						;
-			console.log(sql);
-			module.exports.query(sql,()=>{});*/  
-	  }
-	  
-	});
+		request.get(url_pofile,function(error,response,body){
+		  if(error) {
+			  winston.info(
+					'Failed calling Send API',
+					response.statusCode,
+					response.statusMessage,
+					body.error
+				);
+		  }
+		  if(!error && response.statusCode === 200 ) {
+				var cookie_value = {"event":[event],"profile":[JSON.parse(body)]};
+				console.log(JSON.stringify(cookie_value));
+				/*var	cookie=
+				const sql=INSERT INTO cookie (
+							id ,
+							sender ,
+							receipent ,
+							value
+							)
+							VALUES (
+							'0', '', '', ''
+							);
+							;
+				console.log(sql);
+				module.exports.query(sql,()=>{});*/  
+		  }
+		  
+		});
 	
 	
 	

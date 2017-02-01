@@ -51,14 +51,14 @@ const sql=`INSERT INTO conversation (id, sender, receipent, date, message, event
 
 
 module.exports.savemessagePostback = function savemessagePostback(event, cb, payload, posisi) {
-const sql=`INSERT INTO conversation (id, sender, receipent, date, message, event_json, watermark, is_echo, seq, app_id, mid, payload, posisi) VALUES (NULL, '${event.sender.id}', '${event.recipient.id}', '${event.timestamp}', '', '', '', '', '', '', '', '${payload}', '${posisi}');`;
+const sql=`INSERT INTO conversation (id, sender, receipent, date, message, event_json, watermark, is_echo, seq, app_id, mid, payload, posisi) VALUES (NULL, '${event.sender.id}', '${event.recipient.id}', '${event.timestamp}', '', '', '', '', '', '', '', '${event.payload}', '${posisi}');`;
 	console.log(sql);
 	module.exports.query(sql,()=>{}); 
 };
 
 
 module.exports.saveConsul = function savemessagePostback(event ,msg ,cb) {
-const sql=`INSERT INTO conversations (id, sender, receipent, date, message ,speak ,event ,watermark ,session ,step) VALUES (NULL, '${event.sender.id}', '${event.recipient.id}', '${event.timestamp}', '${msg.texts}','${msg.bot}','${JSON.stringify(event)}','','','${msg.step}');`;
+const sql=`INSERT INTO percakapan (id, sender, receipent, date, message ,speak ,event ,watermark ,payload ,session ,step) VALUES (NULL, '${event.sender.id}', '${event.recipient.id}', '${event.timestamp}', '${msg.texts}','${msg.bot}','${JSON.stringify(event)}','','${event.postback.payload}','1','${msg.step}');`;
 	console.log(sql);
 	module.exports.query(sql,()=>{});
 };
