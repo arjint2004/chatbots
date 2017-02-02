@@ -2,9 +2,10 @@ const sendButtonMessage = require('../sender/sendButtonMessage');
 const sendTextMessage = require('../sender/sendTextMessage');
 const Query = require('../queries/query');
 
-module.exports = function konsultasi(event,step,cb) {
+//modul action saat klik menu konsultasi
+module.exports.konsul = function konsultasi(event,step,cb) {
 	var senderID=event.sender.id;
-	// console.log(JSON.stringify(event));
+
     switch(step){
 		
 				case 1:
@@ -13,9 +14,14 @@ module.exports = function konsultasi(event,step,cb) {
 					Query.saveConsul(event,msg,()=>{});
 					
 				break;
-				
 				case 2:
-					sendTextMessage(senderID, '', () => {});
+					var msg={bot:"cust", step:2, texts:"Terima Kasih "+event.message.text+". \n \n 2. Berapa Usia anda ?"};
+					
+					sendTextMessage(senderID, msg.texts, () => {});
+					event.postback={};
+					event.postback.payload='konsultasi';
+					console.log(JSON.stringify(event));
+					Query.saveConsul(event,msg,()=>{});
 				break;
 				case 3:
 					sendTextMessage(senderID, '', () => {});				
@@ -38,4 +44,9 @@ module.exports = function konsultasi(event,step,cb) {
 				break;
 				
 			}
+};
+
+//modul untuk membalas chat manual
+module.exports.reply = function konsultasi(param,cb) {
+	
 };

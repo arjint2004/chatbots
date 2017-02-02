@@ -54,11 +54,33 @@ module.exports = function receivedMessage(event) {
 	
 	//cek aktifitas terahir
 	// console.log(JSON.stringify(event));
-	var sqlcek='SELECT id,sender,receipent,date,speak,watermark,session,step  FROM percakapan WHERE sender='+senderID+'';
+	var sqlcek='SELECT id,sender,receipent,date,speak,watermark,payload,session,step  FROM percakapan WHERE  id=(SELECT MAX(id) FROM percakapan WHERE sender='+senderID+')';
 	Query.query(sqlcek,(x,rows)=>{
-		console.log(JSON.stringify(rows));
+		
+		switch (rows[0].payload) {
+
+			case 'konsultasi':
+				const konsultasi = require('../actions/konsultasi');
+				konsultasi.konsul(event,2,function(){
+					//callback di sini
+					
+				});
+            break;
+			case 'order':
+		
+            break;
+			case 'cek_order':
+		
+            break;
+			
+			default:
+			
+        }
 	});	
 	return false;
+	
+	
+	
 		var url_pofile="https://graph.facebook.com/v2.6/"+senderID+"?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token="+PAGE_ACCESS_TOKEN+"";
 		
 		var request=require('request');
