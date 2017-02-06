@@ -44,11 +44,7 @@ module.exports = function receivedPostback(event) {
                 break;
 				
             case 'konsultasi':
-                console.log('konsul');
-				// sendTextMessage(senderID, 'Anda akan memulai konsultasi online. Jawab pertanyaan dengan benar dan sesuai kondisi anda. Untuk hasil yang baik.', () => {});
-				konsultasi.konsul(event,1,function(){
-					//callback di sini
-				});
+				konsultasi.konsul(event,1,function(){});
                 break;
 				
             case 'order_w1':

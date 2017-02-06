@@ -5,19 +5,19 @@ module.exports = function getStarted(senderID) {
     async.waterfall([
         function options(callback) {
             sendButtonMessage(senderID, {
-                text: 'Feel free to send us a message or choose an option from the menu',
+                text: 'Selamat datang di DRWSKINCARE www.dr-skincare.com',
                 buttons: [{
                     type: 'postback',
-                    title: 'Shop now',
-                    payload: 'shop_now',
+                    title: 'Konsultasi',
+                    payload: 'konsultasi',
                 }, {
                     type: 'postback',
-                    title: 'View site',
-                    payload: 'view_site',
+                    title: 'Order Resep',
+                    payload: 'order',
                 }, {
                     type: 'postback',
-                    title: 'Learn more',
-                    payload: 'learn_more',
+                    title: 'Contact Us',
+                    payload: 'contact',
                 }],
             }, () => callback());
         },

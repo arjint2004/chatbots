@@ -114,7 +114,8 @@ app.post('/webhook', function (req, res) {
         if (messagingEvent.optin) {
           receivedAuthentication(messagingEvent);
         } else if (messagingEvent.message) {
-		  receivedMessage(messagingEvent);
+		  MysqlQuery.cek_last_action(messagingEvent,()=>{});
+		  // receivedMessage(messagingEvent);
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
         } else if (messagingEvent.postback) {

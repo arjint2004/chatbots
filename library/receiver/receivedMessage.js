@@ -53,30 +53,7 @@ module.exports = function receivedMessage(event) {
     }
 	
 	//cek aktifitas terahir
-	// console.log(JSON.stringify(event));
-	var sqlcek='SELECT id,sender,receipent,date,speak,watermark,payload,session,step  FROM percakapan WHERE  id=(SELECT MAX(id) FROM percakapan WHERE sender='+senderID+')';
-	Query.query(sqlcek,(x,rows)=>{
-		
-		switch (rows[0].payload) {
-
-			case 'konsultasi':
-				const konsultasi = require('../actions/konsultasi');
-				konsultasi.konsul(event,2,function(){
-					//callback di sini
-					
-				});
-            break;
-			case 'order':
-		
-            break;
-			case 'cek_order':
-		
-            break;
-			
-			default:
-			
-        }
-	});	
+	Query.cek_last_action(event,()=>{});
 	return false;
 	
 	

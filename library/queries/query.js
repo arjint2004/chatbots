@@ -4,7 +4,7 @@ const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: 'root',
-    database: 'chatbot',
+    database: 'drwskincaresys',
     debug: false,
 });
 
@@ -60,5 +60,47 @@ const sql=`INSERT INTO conversation (id, sender, receipent, date, message, event
 module.exports.saveConsul = function savemessagePostback(event ,msg ,cb) {
 const sql=`INSERT INTO percakapan (id, sender, receipent, date, message ,speak ,event ,watermark ,payload ,session ,step) VALUES (NULL, '${event.sender.id}', '${event.recipient.id}', '${event.timestamp}', '${msg.texts}','${msg.bot}','${JSON.stringify(event)}','','${event.postback.payload}','1','${msg.step}');`;
 	console.log(sql);
+	cb();
 	module.exports.query(sql,()=>{});
+};
+
+module.exports.cek_last_action_query = function cek_last_action_query(event,cb) {
+	const senderID = event.sender.id;
+	var sqlcek='SELECT id,sender,receipent,date,speak,watermark,payload,session,step  FROM percakapan WHERE  id=(SELECT MAX(id) FROM percakapan WHERE sender='+senderID+' AND speak="bot")';
+	console.log(sqlcek);
+	cb(sqlcek);
+};
+
+module.exports.cek_last_action = function cek_last_action(event,cb) {
+	module.exports.cek_last_action_query(event,(sqlcek)=>{
+		module.exports.query(sqlcek,(x,rows)=>{
+			if (!!rows[0].payload && !!rows[0].step) {
+				 // do something 
+				 
+				switch (rows[0].payload) {
+
+					case 'konsultasi':
+						var limit=rows[0].step+1;
+						if(rows[0].step<7){
+							const konsultasi = require('../actions/konsultasi');
+							konsultasi.konsul(event,rows[0].step+1,function(){
+								//callback di sini
+							});						
+						}
+
+					break;
+					case 'order':
+				
+					break;
+					case 'cek_order':
+				
+					break;
+					
+					default:
+					
+				}
+			}	
+			cb(rows);
+		});
+	});	
 };
